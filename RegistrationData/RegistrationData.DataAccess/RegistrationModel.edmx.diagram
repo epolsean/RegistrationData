@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="faa72b75fee64a12ae3ec03820a35cd7" Name="Diagram1">
+        <EntityTypeShape EntityType="RegistrationDBModel.Course" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistrationDBModel.Person" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistrationDBModel.PersonType" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistrationDBModel.Schedule" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="RegistrationDBModel.fk_course_professor" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistrationDBModel.fk_schedule_courseid" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistrationDBModel.fk_person_persontype" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistrationDBModel.fk_schedule_personid" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
