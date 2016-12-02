@@ -131,14 +131,14 @@ namespace RegistrationData.DataAccess
 
                 if(db.SaveChanges() > 0)
                 {
-                    if(AddSchedule(course, person))
+                    if (!AddSchedule(course, person))
                     {
-
+                        return false;
                     }
                 }
             }
 
-            return db.SaveChanges() > 0;
+            return true;
         }
 
         public bool AddSchedule(Course course, Person person)
@@ -310,7 +310,7 @@ namespace RegistrationData.DataAccess
             }
             else if (person.PersonType == 2 )
             {
-                if (db.Courses.Where(c => c.Professor == course.Professor &&
+                if (db.Courses.Where(c => c.Professor == person.PersonId &&
                                     (c.StartTime == course.StartTime ||
                                      c.EndTime == course.EndTime ||
                                      course.StartTime > c.StartTime && course.EndTime < c.EndTime ||

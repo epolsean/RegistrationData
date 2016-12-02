@@ -86,21 +86,18 @@ namespace RegistrationData.Test
         {
             var data = new EFData();
             Person person = data.GetPerson(5);
-            Course course = new Course() { Title = "TST-101", Department ="Quality Control", Professor = person.PersonId, StartTime = 5, EndTime = 6, Capacity = 10, Credit = 5, Active = true};
+            Course course = new Course() { Title = "TST-101", Department ="Quality Control", Professor = person.PersonId, StartTime = 20, EndTime = 21, Capacity = 10, Credit = 5, Active = true};
+
             var actual = data.AddCourse(course, person);
 
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void Test_AddCourse2()
-        {
-            var data = new RegistrationService();
-            var person = data.GetPerson(5);
-            var course = new CourseDAO() { Title = "TST-101", Department = "Quality Control", Professor = person, StartTime = 5, EndTime = 6, Capacity = 10, Credit = 5, Active = true };
-            var actual = data.AddCourse(course);
-
-            Assert.True(actual);
+            if (data.CancelCourse(course))
+            {
+                Assert.True(actual);
+            }
+            else
+            {
+                Assert.True(false);
+            }
         }
 
         [Fact]
@@ -108,10 +105,26 @@ namespace RegistrationData.Test
         {
             var data = new EFData();
             Person person = data.GetPerson(2);
-            Course course = data.GetCourse(5);
-            var actual = data.CartCourse(course, person);
+            Person professor = data.GetPerson(5);
+            Course course = new Course() { Title = "TST-101", Department = "Quality Control", Professor = professor.PersonId, StartTime = 20, EndTime = 21, Capacity = 10, Credit = 5, Active = true };
 
-            Assert.True(actual);
+            if (data.AddCourse(course, professor))
+            {
+                var actual = data.CartCourse(course, person);
+
+                if (data.CancelCourse(course))
+                {
+                    Assert.True(actual);
+                }
+                else
+                {
+                    Assert.True(false);
+                }
+            }
+            else
+            {
+                Assert.True(false);
+            }
         }
 
         [Fact]
@@ -119,10 +132,33 @@ namespace RegistrationData.Test
         {
             var data = new EFData();
             Person person = data.GetPerson(2);
-            Course course = data.GetCourse(5);
-            var actual = data.RegisterCourse(course, person);
+            Person professor = data.GetPerson(5);
+            Course course = new Course() { Title = "TST-101", Department = "Quality Control", Professor = professor.PersonId, StartTime = 20, EndTime = 21, Capacity = 10, Credit = 5, Active = true };
 
-            Assert.True(actual);
+            if (data.AddCourse(course, professor))
+            {
+                if (data.CartCourse(course, person))
+                {
+                    var actual = data.RegisterCourse(course, person);
+
+                    if (data.CancelCourse(course))
+                    {
+                        Assert.True(actual);
+                    }
+                    else
+                    {
+                        Assert.True(false);
+                    }
+                }
+                else
+                {
+                    Assert.True(false);
+                }
+            }
+            else
+            {
+                Assert.True(false);
+            }
         }
 
         [Fact]
@@ -130,32 +166,48 @@ namespace RegistrationData.Test
         {
             var data = new EFData();
             Person person = data.GetPerson(2);
-            Course course = data.GetCourse(5);
-            var actual = data.DropCourse(course, person);
+            Person professor = data.GetPerson(5);
+            Course course = new Course() { Title = "TST-101", Department = "Quality Control", Professor = professor.PersonId, StartTime = 20, EndTime = 21, Capacity = 10, Credit = 5, Active = true };
 
-            Assert.True(actual);
+            if (data.AddCourse(course, professor))
+            {
+                if (data.CartCourse(course, person))
+                {
+                    var actual = data.DropCourse(course, person);
+
+                    if (data.CancelCourse(course))
+                    {
+                        Assert.True(actual);
+                    }
+                    else
+                    {
+                        Assert.True(false);
+                    }
+                }
+                else
+                {
+                    Assert.True(false);
+                }
+            }
+            else
+            {
+                Assert.True(false);
+            }
         }
 
         [Fact]
         public void Test_CancelCourse()
         {
             var data = new EFData();
-            var course = data.GetCourse(5);
+            Person professor = data.GetPerson(5);
+            Course course = new Course() { Title = "TST-101", Department = "Quality Control", Professor = professor.PersonId, StartTime = 20, EndTime = 21, Capacity = 10, Credit = 5, Active = true };
 
-            var actual = data.CancelCourse(course);
+            if (data.AddCourse(course, professor))
+            {
+                var actual = data.CancelCourse(course);
 
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void Test_CancelCourse2()
-        {
-            var data = new RegistrationService();
-            var course = data.GetCourse(4);
-
-            var actual = data.CancelCourse(course);
-
-            Assert.True(actual);
+                Assert.True(actual);
+            }
         }
 
         [Fact]
@@ -172,20 +224,32 @@ namespace RegistrationData.Test
         public void Test_AddStudent()
         {
             var data = new EFData();
-            Person newStudent = new Person() { FirstName = "Kevin", LastName = "Hart", PersonType = 1, Active = true };
-            var actual = data.AddPerson(newStudent);
+            Person student = new Person() { FirstName = "Test", LastName = "Man", PersonType = 1, Active = true };
 
-            Assert.True(actual);
+            var actual = data.AddPerson(student);
+
+            if (data.RemoveStudent(student))
+            {
+                Assert.True(actual);
+            }
+            else
+            {
+                Assert.True(false);
+            }
         }
 
         [Fact]
         public void Test_RemoveStudent()
         {
             var data = new EFData();
-            Person removeStudent = data.GetPerson(8);
-            var actual = data.RemoveStudent(removeStudent);
+            Person student = new Person() { FirstName = "Test", LastName = "Man", PersonType = 1, Active = true };
 
-            Assert.True(actual);
+            if(data.AddPerson(student))
+            {
+                var actual = data.RemoveStudent(student);
+
+                Assert.True(actual);
+            }
         }
     }
 }
