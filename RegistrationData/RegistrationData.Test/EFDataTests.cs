@@ -22,14 +22,66 @@ namespace RegistrationData.Test
         }
 
         [Fact]
-        public void Test_GetCourseEndTime()
+        public void Test_GetPeople()
         {
             var data = new EFData();
-            var expected = 0;
+            var actual = data.GetPeople();
 
-            var actual = data.GetCourse(3).EndTime;
+            Assert.NotNull(actual);
+        }
 
-            Assert.NotEqual(actual, expected);
+        [Fact]
+        public void Test_GetPersonTypes()
+        {
+            var data = new EFData();
+            var actual = data.GetPersonTypes();
+
+            Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void Test_GetSchedules()
+        {
+            var data = new EFData();
+            var actual = data.GetSchedules();
+
+            Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void Test_GetCourse()
+        {
+            var data = new EFData();
+            var actual = data.GetCourse(1);
+
+            Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void Test_GetPerson()
+        {
+            var data = new EFData();
+            var actual = data.GetPerson(1);
+
+            Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void Test_GetPersonType()
+        {
+            var data = new EFData();
+            var actual = data.GetPersonType(1);
+
+            Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void Test_GetSchedule()
+        {
+            var data = new EFData();
+            var actual = data.GetSchedule(1, 1);
+
+            Assert.NotNull(actual);
         }
 
         [Fact]
@@ -69,16 +121,6 @@ namespace RegistrationData.Test
             var actual = data.GetAllActiveStudents();
 
             Assert.NotNull(actual);
-        }
-
-        [Fact]
-        public void Test_GetStudentSchedule()
-        {
-            var data = new EFData();
-            Person person = new Person() { PersonId = 1 };
-            var actual = data.GetStudentSchedule(person);
-
-            Assert.NotEqual(actual.Count(), 0);
         }
 
         [Fact]
